@@ -11,8 +11,11 @@ $('button').click(function (){
     console.log(response.data[0].url);
     console.log(response.data[0].rating);
     console.log(response.data[0].images.original.url);
-    var gifArt = response.data[0].url;
+    // var gifArt = response.data[0].url;
+    var gifArt = $('<img>').attr('src',response.data[0].images.original.url);
     var gifRating = response.data[0].rating;
-    $('#results').html(`<iframe src="`+gifArt+`width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>`+`<br> Rating: `+gifRating);
+    $('#results').prepend(gifArt);
+    $('#results').append(gifRating);
+    // $('#results').html(`<img src="`+gifArt+`><br> Rating: `+gifRating);
   });
 });
