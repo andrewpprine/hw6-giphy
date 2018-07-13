@@ -33,10 +33,13 @@ $(document).on('click','#buttonArea button',function (){
   }).then(function(response) {
     console.log(response);
     for(x=0;x<10;x++){
-      var gifArt = $('<img>').attr('src',response.data[x].images.original.url);
+      var gifArt = $('<img>').attr('src',response.data[x].images.fixed_width.url);
       var gifRating = response.data[x].rating;
-      $('#gifArea').prepend(gifArt);
-      $('#gifArea').append(gifRating);
+      var gifRated = gifRating.toUpperCase();
+      $('#gifArea').append(gifArt);
+      $('#gifArea').append('<br>');
+      $('#gifArea').append(`Rated: `+gifRated);
+      $('#gifArea').append('<br><br><br>');
       // $('#gifArea').html(`<img src="`+gifArt+`><br> Rating: `+gifRating);
     }
   });
