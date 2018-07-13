@@ -1,8 +1,6 @@
 
 var topics = [`pizza`, `taco`, `sandwich`, `donut`,`ice cream`]
-var newImage;
 var newButton;
-var newDiv;
 
 //pre-made search buttons
 function buttonMaker(){
@@ -15,15 +13,17 @@ for(x in topics){
 
 //new buttons from input
 $('#makeButton').click(function(){
-  event.preventDefault();
   var userInput = $('input').val();
   newButton = $('<button>').text(userInput);
+  // if(newButton.val() === ''){
+  //   alert('Get off your diet');
+  // }else{
   $('#buttonArea').append(newButton);
   topics.push(userInput);
   $('input').val('');
 });
 
-//search giphy for 10 gifs based on button/search text
+//search giphy for 10 gifs based on button text
 $(document).on('click','#buttonArea button',function (){
   clear();
   var searchFor = $(this).text();
@@ -31,16 +31,21 @@ $(document).on('click','#buttonArea button',function (){
   $.ajax({
     url: queryURL
   }).then(function(response) {
-    console.log(response);
+    // console.log(response);
     for(x=0;x<10;x++){
-      var gifArt = $('<img>').attr('src',response.data[x].images.fixed_width.url);
+      var gifArt = $('<img>').attr('src',response.data[x].images.original.url);
       var gifRating = response.data[x].rating;
       var gifRated = gifRating.toUpperCase();
       $('#gifArea').append(gifArt);
       $('#gifArea').append('<br>');
       $('#gifArea').append(`Rated: `+gifRated);
       $('#gifArea').append('<br><br><br>');
-      // $('#gifArea').html(`<img src="`+gifArt+`><br> Rating: `+gifRating);
+//ideally the search will be for 50, first 10 will display, plus a more button to append the next 10 at a time
+      // if(x>10){
+      //   gifArt.hide();
+      //   gifRated.hide();
+      //   var moreButton = $('<button>').text('MORE!');
+      //   $('#gifArea').append(moreButton);
     }
   });
 });
@@ -48,22 +53,3 @@ $(document).on('click','#buttonArea button',function (){
 function clear(){
   $('#gifArea').empty();
 }
-
-
-// $('#makeButton').click(function (){
-//   var input = $('input').val();
-//   var queryURL = `https://api.giphy.com/v1/gifs/search?api_key=s1ZtYEWgR2UGbcVY0dPXq32Q5gMlN9Xf&q=`+input+`&limit=10&offset=0&rating=PG-13&lang=en`
-//   $.ajax({
-//     url: queryURL
-//   }).then(function(response) {
-//     console.log(response);
-//     for(x=0;x<10;x++){
-//       var gifArt = $('<img>').attr('src',response.data[x].images.original.url);
-//       var gifRating = response.data[x].rating;
-//       $('#gifArea').prepend(gifArt);
-//       $('#gifArea').append(gifRating);
-//       // $('#gifArea').html(`<img src="`+gifArt+`><br> Rating: `+gifRating);
-//     }
-//   });
-// });
-
