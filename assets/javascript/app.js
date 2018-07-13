@@ -1,4 +1,5 @@
 
+var foods = [`pizza`, `taco`, `sandwich`, `donut`,`ice cream`]
 
 $('button').click(function (){
   var input = $('input').val();
@@ -9,10 +10,14 @@ $('button').click(function (){
     console.log(response);
     console.log(response.data[0].images.original.url);
     // var gifArt = response.data[0].url;
-    var gifArt = $('<img>').attr('src',response.data[0].images.original.url);
-    var gifRating = response.data[0].rating;
-    $('#results').prepend(gifArt);
-    $('#results').append(gifRating);
-    // $('#results').html(`<img src="`+gifArt+`><br> Rating: `+gifRating);
+    for(x=0;x<10;x++){
+
+      var gifArt = $('<img>').attr('src',response.data[x].images.original.url);
+      var gifRating = response.data[x].rating;
+      $('#results').prepend(gifArt);
+      $('#results').append(gifRating);
+      // $('#results').html(`<img src="`+gifArt+`><br> Rating: `+gifRating);
+    }
   });
 });
+
